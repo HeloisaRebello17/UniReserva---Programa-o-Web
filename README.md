@@ -11,5 +11,4 @@
 <div class="dominio_problema">
   <h2>Domínio do Problema</h2>
   <p>Instituições de ensino frequentemente enfrentam dificuldades no controle de reservas de salas de aula e laboratórios. Muitas vezes o processo é manual, sujeito a conflitos de horário e falta de organização. </p>
-    <hr>
-  <p>O sistema proposto tem como objetivo permitir que usuários autenticados realizem reservas de salas, consultem disponibilidade e gerenciem suas solicitações de forma organizada e segura.</p>
+  <p align="center">O sistema proposto tem como objetivo permitir que usuários autenticados realizem reservas de salas, consultem disponibilidade e gerenciem suas solicitações de forma organizada e segura.</p>
