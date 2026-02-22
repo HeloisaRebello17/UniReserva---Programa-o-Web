@@ -1,4 +1,4 @@
-<h2> UniReserva---Programa-o-Web </h2>
+<h2 style="align-items: center"> UniReserva </h2>
 
 <div class="descricao_projeto">
 <h2> Descrição do Projeto </h2>
