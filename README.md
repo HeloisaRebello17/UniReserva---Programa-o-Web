@@ -1,4 +1,4 @@
-<p align="center">
+<img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/62aa0236-5a02-4ea7-975b-31d412b253be" /><img width="512" height="512" alt="image" src="https://github.com/user-attachments/assets/325827da-f611-4895-980a-ff13440f6359" /><p align="center">
   <img src="assets/images/Logo_UniReserva.png" alt="Logo UniReserva" width="200" />
 </p>
 
@@ -157,5 +157,6 @@
   <img align="center" alt="FIGMA" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" />
   <img align="center" alt="GITHUB" height="40" width="40"src="https://cdn.iconscout.com/icon/free/png-256/github-2690381-2232884.png" />
   <img  align="center" alt="VSCODE" height="35" width="30" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" />
-  <img align="center" alt="Docks-NOTION" height="40" width="40" src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png"/>
+  <img align="center" alt="NOTION" height="40" width="40" src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png"/>
+  <img align="center" alt="JAVASCRIPT" height="40" width="40" src="https://img.icons8.com/?size=100&id=108784&format=png&color=000000.png"/>
   </div>
