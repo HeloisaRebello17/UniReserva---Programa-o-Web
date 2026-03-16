@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniReserva</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <img src="../assets/images/Logo_UniReserva.png" alt="Logo UniReserva" class="logo" />
+    <div>
+      <h1>UniReserva</h1>
+      <p>Protótipo inicial para autenticação, consulta de salas e criação de reservas.</p>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="card">
+      <h2>Entrar</h2>
+      <form id="login-form">
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" value="professor@unireserva.com" required />
+
+        <label for="password">Senha</label>
+        <input id="password" name="password" type="password" value="prof123" required />
+
+        <button type="submit">Fazer login</button>
+      </form>
+      <p id="login-status" class="status"></p>
+      <p id="session-status" class="status"></p>
+      <button id="logout-button" type="button" class="secondary-button">Sair</button>
+    </section>
+
+    <section class="card">
+      <h2>Salas disponíveis</h2>
+      <button id="load-rooms" type="button">Carregar salas</button>
+      <ul id="room-list" class="list"></ul>
+    </section>
+
+    <section class="card card-wide">
+      <h2>Nova reserva</h2>
+      <form id="reservation-form">
+        <div class="row">
+          <div>
+            <label for="roomId">Sala</label>
+            <input id="roomId" name="roomId" type="number" min="1" value="1" required />
+          </div>
+          <div>
+            <label for="date">Data</label>
+            <input id="date" name="date" type="date" required />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="startTime">Início</label>
+            <input id="startTime" name="startTime" type="time" value="19:00" required />
+          </div>
+          <div>
+            <label for="endTime">Fim</label>
+            <input id="endTime" name="endTime" type="time" value="20:00" required />
+          </div>
+        </div>
+        <button type="submit">Reservar sala</button>
+      </form>
+      <p id="reservation-status" class="status"></p>
+      <h3>Reservas registradas</h3>
+      <button id="load-reservations" type="button">Atualizar reservas</button>
+      <ul id="reservation-list" class="list"></ul>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

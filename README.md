@@ -153,6 +153,119 @@
   </ul>
 </div>
 
+<div class="arquitetura_c4">
+  <h2>Arquitetura C4</h2>
+  <p><a href="c4-context.puml">Ver arquivo fonte do diagrama C4</a></p>
+
+  <p align="center">
+    <img src="assets/images/c4-context.png" alt="Diagrama C4 de contexto do UniReserva" width="900" />
+  </p>
+
+  <h3>Nível 1 – Diagrama de Contexto</h3>
+  <p>Visão geral do sistema e seus atores externos:</p>
+  <ul>
+    <li><p><b>Usuário (Professor / Coordenador / Estudante)</b> → interage com o sistema via navegador web para realizar reservas de salas.</p></li>
+    <li><p><b>UniReserva (Sistema Web)</b> → processa as solicitações, autentica usuários e gerencia as reservas.</p></li>
+    <li><p><b>Banco de Dados (PostgreSQL)</b> → armazena os dados de usuários, salas e reservas.</p></li>
+  </ul>
+
+  <h3>Nível 2 – Diagrama de Contêiner</h3>
+  <p>Componentes principais do sistema:</p>
+  <ul>
+    <li><p><b>Front-end (HTML + CSS + JavaScript)</b> → interface web executada no navegador do usuário. Consome a API REST.</p></li>
+    <li><p><b>Back-end / API REST (Node.js + Express)</b> → responsável pelas regras de negócio, autenticação JWT e comunicação com o banco de dados. Organizado no padrão MVC.</p></li>
+    <li><p><b>Banco de Dados (PostgreSQL)</b> → armazena e persiste os dados do sistema.</p></li>
+  </ul>
+
+  <h3>Nível 3 – Diagrama de Componentes (Back-end)</h3>
+  <p>Componentes internos da API:</p>
+  <ul>
+    <li><p><b>Router (Rotas Express)</b> → define os endpoints da API REST e direciona as requisições.</p></li>
+    <li><p><b>Controller</b> → recebe as requisições HTTP, chama os serviços e retorna as respostas.</p></li>
+    <li><p><b>Service / Model</b> → contém as regras de negócio e realiza as operações no banco de dados.</p></li>
+    <li><p><b>Middleware de Autenticação (JWT)</b> → valida o token nas rotas protegidas antes de permitir o acesso.</p></li>
+  </ul>
+
+  <h3>Nível 4 – Diagrama de Código (Fluxo de Reserva)</h3>
+  <p>Fluxo principal da funcionalidade de reserva de sala:</p>
+  <ol>
+    <li><p>Usuário envia requisição <code>POST /reservas</code> com data, horário e id da sala.</p></li>
+    <li><p>Middleware verifica o token JWT.</p></li>
+    <li><p>Controller recebe a requisição e chama o <code>ReservaService</code>.</p></li>
+    <li><p>Service consulta o banco para verificar disponibilidade da sala no horário solicitado.</p></li>
+    <li><p>Se disponível → registra a reserva e retorna <code>201 Created</code>.</p></li>
+    <li><p>Se indisponível → retorna <code>409 Conflict</code> com mensagem de erro.</p></li>
+  </ol>
+</div>
+
+<div class="entrega_atual">
+  <h2>Entrega Atual – Próxima Iteração</h2>
+  <p>Nesta etapa, a implementação evoluiu <b>por ambos</b>: front-end e back-end, com integração real ao PostgreSQL e preparação de demo local.</p>
+
+  <h3>Artefatos Disponíveis no Repositório</h3>
+  <ul>
+    <li><p><b>Front-end:</b> interface inicial em <code>public/index.html</code>, <code>public/styles.css</code> e <code>public/app.js</code>.</p></li>
+    <li><p><b>Back-end:</b> API REST em Node.js + Express, organizada em estrutura inspirada em MVC dentro da pasta <code>src</code>.</p></li>
+    <li><p><b>Banco de dados:</b> schema em <code>db/schema.sql</code>, seed em <code>db/seed.sql</code> e script de inicialização em <code>scripts/initDb.js</code>.</p></li>
+    <li><p><b>Demo local:</b> configuração de ambiente em <code>.env.example</code> e serviço PostgreSQL em <code>docker-compose.yml</code>.</p></li>
+    <li><p><b>Arquitetura C4:</b> diagrama fonte em <code>c4-context.puml</code> e imagem em <code>assets/images/c4-context.png</code>.</p></li>
+    <li><p><b>Teste automatizado:</b> fluxo principal validado em <code>test/api.test.js</code>.</p></li>
+  </ul>
+
+  <h3>Escopo Implementado Nesta Entrega</h3>
+  <ul>
+    <li><p>Autenticação com geração e validação de token JWT.</p></li>
+    <li><p>Consulta de salas disponíveis a partir do PostgreSQL.</p></li>
+    <li><p>Criação de reservas com validação de conflito de horário no banco.</p></li>
+    <li><p>Cancelamento de reservas com controle básico de permissão.</p></li>
+    <li><p>Interface web inicial para demonstrar o fluxo principal da aplicação.</p></li>
+    <li><p>Scripts para inicialização da base e preparação de demo local.</p></li>
+  </ul>
+
+  <h3>Ajustes de Requisitos Identificados</h3>
+  <ul>
+    <li><p><b>AR01:</b> o requisito RNF03 foi atendido nesta iteração com integração real ao PostgreSQL, incluindo schema, seed e script de inicialização.</p></li>
+    <li><p><b>AR02:</b> o requisito RF02 foi detalhado como autenticação via JWT com proteção das rotas privadas da API.</p></li>
+    <li><p><b>AR03:</b> o requisito RF06 foi detalhado com a regra de conflito por sala, data e sobreposição de horários.</p></li>
+    <li><p><b>AR04:</b> para facilitar a avaliação local, foi incluída uma estratégia de demo com <code>docker-compose</code> e variáveis em <code>.env.example</code>.</p></li>
+  </ul>
+
+  <h3>Estrutura Inicial do Projeto</h3>
+  <ul>
+    <li><p><code>src/controllers</code> → recebe as requisições HTTP e retorna respostas.</p></li>
+    <li><p><code>src/services</code> → concentra regras de negócio.</p></li>
+    <li><p><code>src/repositories</code> → executa consultas SQL no PostgreSQL.</p></li>
+    <li><p><code>src/routes</code> → define endpoints da API REST.</p></li>
+    <li><p><code>src/middleware</code> → valida autenticação e permissões.</p></li>
+    <li><p><code>src/config</code> → centraliza conexão com banco e bootstrap da base.</p></li>
+    <li><p><code>db</code> → guarda os scripts SQL de schema e seed.</p></li>
+    <li><p><code>scripts</code> → contém scripts auxiliares, como inicialização do banco.</p></li>
+    <li><p><code>public</code> → contém a interface web inicial.</p></li>
+  </ul>
+
+  <h3>Como Executar</h3>
+  <ol>
+    <li><p>Copiar <code>.env.example</code> para um arquivo <code>.env</code> e ajustar as variáveis se necessário.</p></li>
+    <li><p>Instalar dependências com <code>npm.cmd install</code>.</p></li>
+    <li><p>Subir o PostgreSQL com <code>npm.cmd run db:up</code> (requer Docker instalado).</p></li>
+    <li><p>Inicializar schema e seed com <code>npm.cmd run db:init</code>.</p></li>
+    <li><p>Iniciar a aplicação com <code>npm.cmd start</code>.</p></li>
+    <li><p>Acessar <code>http://localhost:3000</code> no navegador.</p></li>
+  </ol>
+
+  <h3>Validação da Entrega</h3>
+  <ul>
+    <li><p>Os testes automatizados passam com <code>npm.cmd test</code>.</p></li>
+    <li><p>O comando <code>npm.cmd start</code> sobe a aplicação localmente.</p></li>
+    <li><p>Neste ambiente de edição, o Docker não está instalado; por isso, a subida real do container PostgreSQL deve ser executada localmente na máquina com Docker disponível.</p></li>
+  </ul>
+
+  <h3>Usuários de Demonstração</h3>
+  <ul>
+    <li><p><b>Administrador:</b> <code>admin@unireserva.com</code> / <code>admin123</code></p></li>
+    <li><p><b>Professor:</b> <code>professor@unireserva.com</code> / <code>prof123</code></p></li>
+  </ul>
+</div>
 <div style="display: inline_block"><br>
   <img align="center" alt="FIGMA" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" />
   <img align="center" alt="GITHUB" height="40" width="40"src="https://cdn.iconscout.com/icon/free/png-256/github-2690381-2232884.png" />

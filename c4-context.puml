@@ -1,0 +1,22 @@
+@startuml mvc
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+' -- Atores --
+Person(user, "Usuario", "Pessoa que deseja gerenciar reservas de salas.")
+
+' -- Sistema Principal --
+System(reserva_sistema, "Sistema de Reserva de Salas", "Permite cadastro de usuarios, gestao de salas, reservas e consulta de disponibilidade.")
+
+' -- Sistemas Externos --
+System_Ext(auth_service, "Servico de Autenticacao", "Valida o login e gerencia tokens (RF02).")
+System_Ext(email_service, "Servico de E-mail", "Envia notificacoes de confirmacao de reserva.")
+
+' -- Relacionamentos --
+' Atores com Sistema
+Rel(user, reserva_sistema, "Cadastra-se, loga, consulta salas e reserva")
+
+' Sistema com Sistemas Externos
+Rel(reserva_sistema, auth_service, "Valida token de acesso", "API/Token")
+Rel(reserva_sistema, email_service, "Envia e-mail de reserva confirmada", "SMTP")
+
+@enduml

@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(120) NOT NULL,
+  email VARCHAR(160) NOT NULL UNIQUE,
+  password VARCHAR(120) NOT NULL,
+  type VARCHAR(20) NOT NULL DEFAULT 'common'
+);
+
+CREATE TABLE IF NOT EXISTS rooms (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(120) NOT NULL,
+  capacity INTEGER NOT NULL CHECK (capacity > 0),
+  type VARCHAR(60) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS reservations (
+  id SERIAL PRIMARY KEY,
+  date DATE NOT NULL,
+  start_time TIME NOT NULL,
+  end_time TIME NOT NULL,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  room_id INTEGER NOT NULL REFERENCES rooms(id) ON DELETE CASCADE,
+  status VARCHAR(20) NOT NULL DEFAULT 'ativa',
+  CONSTRAINT valid_time_range CHECK (start_time < end_time)
+);
