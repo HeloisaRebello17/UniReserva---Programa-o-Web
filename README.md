@@ -67,7 +67,8 @@
   </div>
 
 <div class="modelo_entidade_banco">
- <h2>Inserir foto</h2>
+ <h2>Modelo entidade banco</h2>
+  <p>Inserir foto</p>
 </div>
 
 <div class="tecnologias_utilizadas">
