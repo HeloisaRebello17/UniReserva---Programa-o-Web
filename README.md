@@ -135,11 +135,12 @@
   <p><a href="c4-container.puml">Ver arquivo fonte do diagrama de contêiner</a></p>
   <p><a href="c4-components.puml">Ver arquivo fonte do diagrama de componentes</a></p>
 
-  <p align="center">
-    <img src="assets/images/c4-context.png" alt="Diagrama C4 de contexto do UniReserva" width="900" style="max-width: 100%; height: auto;" />
-  </p>
+ 
 
   <h3>Nível 1 – Diagrama de Contexto</h3>
+   <p align="center">
+    <img src="assets/images/c4-context.png" alt="Diagrama C4 de contexto do UniReserva" width="900" style="max-width: 100%; height: auto;" />
+  </p>
   <p>Visão geral do sistema e seus atores externos:</p>
   <ul>
     <li><p><b>Usuário (Professor / Coordenador / Estudante)</b> → interage com o sistema via navegador web para realizar reservas de salas.</p></li>
@@ -170,16 +171,6 @@
     <li><p><b>Middleware de Autenticação (JWT)</b> → valida o token nas rotas protegidas antes de permitir o acesso.</p></li>
   </ul>
 
-  <h3>Nível 4 – Diagrama de Código (Fluxo de Reserva)</h3>
-  <p>Fluxo principal da funcionalidade de reserva de sala:</p>
-  <ol>
-    <li><p>Usuário envia requisição <code>POST /reservas</code> com data, horário e id da sala.</p></li>
-    <li><p>Middleware verifica o token JWT.</p></li>
-    <li><p>Controller recebe a requisição e chama o <code>ReservaService</code>.</p></li>
-    <li><p>Service consulta o banco para verificar disponibilidade da sala no horário solicitado.</p></li>
-    <li><p>Se disponível → registra a reserva e retorna <code>201 Created</code>.</p></li>
-    <li><p>Se indisponível → retorna <code>409 Conflict</code> com mensagem de erro.</p></li>
-  </ol>
 </div>
 
 <div class="entrega_atual">
