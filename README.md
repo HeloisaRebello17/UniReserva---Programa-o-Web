@@ -67,32 +67,7 @@
   </div>
 
 <div class="modelo_entidade_banco">
-  <h2> Modelo Entidade Banco</h2>
-  <h4>Usuário</h4>
-  <ul>
-    <li><p>id</p></li>
-    <li><p>nome</p></li>
-    <li><p>email</p></li>
-    <li><p>senha</p></li>
-    <li><p>tipo (admin / comum)</p></li>
-  </ul>
-    <h4>Sala</h4>
-  <ul>
-    <li><p>id</p></li>
-    <li><p>nome</p></li>
-    <li><p>capacidade</p></li>
-    <li><p>tipo (laboratório / sala comum)</p></li>
-  </ul>
-      <h4>Reserva</h4>
-  <ul>
-    <li><p>id</p></li>
-    <li><p>data</p></li>
-    <li><p>horário início</p></li>
-    <li><p>horário fim</p></li>
-    <li><p>id_usuario</p></li>
-    <li><p>id_sala</p></li>
-    <li><p>status</p></li>
-  </ul>
+ <h2>Inserir foto</h2>
 </div>
 
 <div class="tecnologias_utilizadas">
