@@ -1,0 +1,25 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Diagrama de Contêiner - UniReserva
+
+Person(user, "Usuário", "Professor, Coordenador ou Estudante que deseja reservar salas.")
+
+System_Boundary(c1, "UniReserva") {
+    Container(web_app, "Single-Page Application", "JavaScript, HTML, CSS", "Interface web onde o usuário gerencia as reservas.")
+    Container(api, "API Application", "Node.js, Express", "Fornece funcionalidades de reserva via uma API JSON/HTTPS.")
+    ContainerDb(db, "Banco de Dados", "PostgreSQL", "Armazena informações de usuários, salas e registros de reservas.")
+}
+
+System_Ext(auth_service, "Serviço de Autenticação", "Gerencia tokens JWT e validação de login.")
+System_Ext(email_service, "Serviço de E-mail", "Sistema externo de envio de notificações (SMTP).")
+
+Rel(user, web_app, "Usa", "HTTPS")
+Rel(web_app, api, "Faz chamadas de API para", "JSON/HTTPS")
+Rel(api, db, "Lê e escreve em", "SQL/TCP")
+Rel(api, auth_service, "Valida token em", "JSON/HTTPS")
+Rel(api, email_service, "Envia e-mails usando", "SMTP")
+
+@enduml

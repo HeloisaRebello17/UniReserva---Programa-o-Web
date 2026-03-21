@@ -1,0 +1,27 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Diagrama de Componentes - API Application (Back-end)
+
+Container(web_app, "Single-Page Application", "JavaScript", "Interface do usuário.")
+ContainerDb(db, "Banco de Dados", "PostgreSQL", "Armazena os dados do sistema.")
+
+System_Boundary(api_boundary, "API Application") {
+    Component(router, "Router", "Express Router", "Define os endpoints e direciona as requisições.")
+    Component(auth_md, "Middleware de Autenticação", "JWT", "Valida o token nas rotas protegidas.")
+    Component(reserva_controller, "ReservaController", "Node.js Controller", "Recebe requisições e envia respostas HTTP.")
+    Component(reserva_service, "ReservaService", "Node.js Service", "Contém as regras de negócio de reserva e disponibilidade.")
+}
+
+System_Ext(email_service, "Serviço de E-mail", "SMTP")
+
+Rel(web_app, router, "Faz requisições para", "JSON/HTTPS")
+Rel(router, auth_md, "Passa pela validação")
+Rel(auth_md, reserva_controller, "Encaminha para")
+Rel(reserva_controller, reserva_service, "Chama métodos de")
+Rel(reserva_service, db, "Consulta e persiste dados em", "SQL")
+Rel(reserva_service, email_service, "Dispara notificações para")
+
+@enduml

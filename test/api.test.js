@@ -91,3 +91,24 @@ test('conflicting reservation is rejected', async () => {
 
   assert.equal(conflictResponse.statusCode, 409);
 });
+
+test('reservation accepts room reference by name number (e.g. 101)', async () => {
+  const loginResponse = await request(app)
+    .post('/api/auth/login')
+    .send({ email: 'professor@unireserva.com', password: 'prof123' });
+
+  const token = loginResponse.body.token;
+
+  const reservationResponse = await request(app)
+    .post('/api/reservations')
+    .set('Authorization', `Bearer ${token}`)
+    .send({
+      roomId: 101,
+      date: '2026-03-22',
+      startTime: '19:00',
+      endTime: '20:00'
+    });
+
+  assert.equal(reservationResponse.statusCode, 201);
+  assert.equal(reservationResponse.body.roomId, 1);
+});
