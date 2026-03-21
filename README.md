@@ -67,8 +67,32 @@
   </div>
 
 <div class="modelo_entidade_banco">
- <h2>Modelo entidade banco</h2>
-  <p>Inserir foto</p>
+  <h2> Modelo Entidade Banco</h2>
+  <h4>Usuário</h4>
+  <ul>
+    <li><p>id</p></li>
+    <li><p>nome</p></li>
+    <li><p>email</p></li>
+    <li><p>senha</p></li>
+    <li><p>tipo (admin / comum)</p></li>
+  </ul>
+    <h4>Sala</h4>
+  <ul>
+    <li><p>id</p></li>
+    <li><p>nome</p></li>
+    <li><p>capacidade</p></li>
+    <li><p>tipo (laboratório / sala comum)</p></li>
+  </ul>
+      <h4>Reserva</h4>
+  <ul>
+    <li><p>id</p></li>
+    <li><p>data</p></li>
+    <li><p>horário início</p></li>
+    <li><p>horário fim</p></li>
+    <li><p>id_usuario</p></li>
+    <li><p>id_sala</p></li>
+    <li><p>status</p></li>
+  </ul>
 </div>
 
 <div class="tecnologias_utilizadas">
@@ -131,16 +155,13 @@
 
 <div class="arquitetura_c4">
   <h2>Arquitetura C4</h2>
-  <p><a href="c4-context.puml">Ver arquivo fonte do diagrama de contexto</a></p>
-  <p><a href="c4-container.puml">Ver arquivo fonte do diagrama de contêiner</a></p>
-  <p><a href="c4-components.puml">Ver arquivo fonte do diagrama de componentes</a></p>
+  <p><a href="c4-context.puml">Ver arquivo fonte do diagrama C4</a></p>
 
- 
+  <p align="center">
+    <img src="assets/images/c4-context.png" alt="Diagrama C4 de contexto do UniReserva" width="900" />
+  </p>
 
   <h3>Nível 1 – Diagrama de Contexto</h3>
-   <p align="center">
-    <img src="assets/images/c4-context.png" alt="Diagrama C4 de contexto do UniReserva" width="900" style="max-width: 100%; height: auto;" />
-  </p>
   <p>Visão geral do sistema e seus atores externos:</p>
   <ul>
     <li><p><b>Usuário (Professor / Coordenador / Estudante)</b> → interage com o sistema via navegador web para realizar reservas de salas.</p></li>
@@ -149,9 +170,6 @@
   </ul>
 
   <h3>Nível 2 – Diagrama de Contêiner</h3>
-  <p align="center">
-    <img src="assets/images/c4-container.png" alt="Diagrama C4 de contêiner do UniReserva" width="900" style="max-width: 100%; height: auto;" />
-  </p>
   <p>Componentes principais do sistema:</p>
   <ul>
     <li><p><b>Front-end (HTML + CSS + JavaScript)</b> → interface web executada no navegador do usuário. Consome a API REST.</p></li>
@@ -160,9 +178,6 @@
   </ul>
 
   <h3>Nível 3 – Diagrama de Componentes (Back-end)</h3>
-  <p align="center">
-    <img src="assets/images/c4-components.png" alt="Diagrama C4 de componentes do UniReserva" width="900" style="max-width: 100%; height: auto;" />
-  </p>
   <p>Componentes internos da API:</p>
   <ul>
     <li><p><b>Router (Rotas Express)</b> → define os endpoints da API REST e direciona as requisições.</p></li>
@@ -171,6 +186,16 @@
     <li><p><b>Middleware de Autenticação (JWT)</b> → valida o token nas rotas protegidas antes de permitir o acesso.</p></li>
   </ul>
 
+  <h3>Nível 4 – Diagrama de Código (Fluxo de Reserva)</h3>
+  <p>Fluxo principal da funcionalidade de reserva de sala:</p>
+  <ol>
+    <li><p>Usuário envia requisição <code>POST /reservas</code> com data, horário e id da sala.</p></li>
+    <li><p>Middleware verifica o token JWT.</p></li>
+    <li><p>Controller recebe a requisição e chama o <code>ReservaService</code>.</p></li>
+    <li><p>Service consulta o banco para verificar disponibilidade da sala no horário solicitado.</p></li>
+    <li><p>Se disponível → registra a reserva e retorna <code>201 Created</code>.</p></li>
+    <li><p>Se indisponível → retorna <code>409 Conflict</code> com mensagem de erro.</p></li>
+  </ol>
 </div>
 
 <div class="entrega_atual">
@@ -183,7 +208,7 @@
     <li><p><b>Back-end:</b> API REST em Node.js + Express, organizada em estrutura inspirada em MVC dentro da pasta <code>src</code>.</p></li>
     <li><p><b>Banco de dados:</b> schema em <code>db/schema.sql</code>, seed em <code>db/seed.sql</code> e script de inicialização em <code>scripts/initDb.js</code>.</p></li>
     <li><p><b>Demo local:</b> configuração de ambiente em <code>.env.example</code> e serviço PostgreSQL em <code>docker-compose.yml</code>.</p></li>
-    <li><p><b>Arquitetura C4:</b> diagramas fonte em <code>c4-context.puml</code>, <code>c4-container.puml</code> e <code>c4-components.puml</code>, com imagens em <code>assets/images/c4-context.png</code>, <code>assets/images/c4-container.png</code> e <code>assets/images/c4-components.png</code>.</p></li>
+    <li><p><b>Arquitetura C4:</b> diagrama fonte em <code>c4-context.puml</code> e imagem em <code>assets/images/c4-context.png</code>.</p></li>
     <li><p><b>Teste automatizado:</b> fluxo principal validado em <code>test/api.test.js</code>.</p></li>
   </ul>
 

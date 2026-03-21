@@ -12,22 +12,6 @@ async function findRoomById(id) {
   return result.rows[0] || null;
 }
 
-async function findRoomByReference(reference) {
-  const db = getDatabase();
-  const normalizedReference = String(reference).trim();
-  const result = await db.query(
-    `SELECT id, name, capacity, type
-     FROM rooms
-     WHERE LOWER(name) = LOWER($1)
-        OR name ILIKE '%' || $1 || '%'
-     ORDER BY CASE WHEN LOWER(name) = LOWER($1) THEN 0 ELSE 1 END, id
-     LIMIT 1`,
-    [normalizedReference]
-  );
-
-  return result.rows[0] || null;
-}
-
 async function createRoom({ name, capacity, type }) {
   const db = getDatabase();
   const result = await db.query(
@@ -41,6 +25,5 @@ async function createRoom({ name, capacity, type }) {
 module.exports = {
   listRooms,
   findRoomById,
-  findRoomByReference,
   createRoom
 };

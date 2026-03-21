@@ -10,16 +10,9 @@ async function createReservation({ date, startTime, endTime, roomId, userId }) {
     throw new Error('Data, horários, sala e usuário são obrigatórios.');
   }
 
-  const normalizedUserId = Number(userId);
   const normalizedRoomId = Number(roomId);
-  let room = Number.isFinite(normalizedRoomId)
-    ? await roomRepository.findRoomById(normalizedRoomId)
-    : null;
-
-  if (!room) {
-    room = await roomRepository.findRoomByReference(roomId);
-  }
-
+  const normalizedUserId = Number(userId);
+  const room = await roomRepository.findRoomById(normalizedRoomId);
   if (!room) {
     throw new Error('Sala não encontrada.');
   }
@@ -28,7 +21,7 @@ async function createReservation({ date, startTime, endTime, roomId, userId }) {
     date,
     startTime,
     endTime,
-    roomId: room.id
+    roomId: normalizedRoomId
   });
 
   if (conflict) {
@@ -41,7 +34,7 @@ async function createReservation({ date, startTime, endTime, roomId, userId }) {
     date,
     startTime,
     endTime,
-    roomId: room.id,
+    roomId: normalizedRoomId,
     userId: normalizedUserId
   });
 }
