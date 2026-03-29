@@ -174,16 +174,6 @@
     <li><p><b>Middleware de Autenticação (JWT)</b> → valida o token nas rotas protegidas antes de permitir o acesso.</p></li>
   </ul>
 
-  <h3>Nível 4 – Diagrama de Código (Fluxo de Reserva)</h3>
-  <p>Fluxo principal da funcionalidade de reserva de sala:</p>
-  <ol>
-    <li><p>Usuário envia requisição <code>POST /reservas</code> com data, horário e id da sala.</p></li>
-    <li><p>Middleware verifica o token JWT.</p></li>
-    <li><p>Controller recebe a requisição e chama o <code>ReservaService</code>.</p></li>
-    <li><p>Service consulta o banco para verificar disponibilidade da sala no horário solicitado.</p></li>
-    <li><p>Se disponível → registra a reserva e retorna <code>201 Created</code>.</p></li>
-    <li><p>Se indisponível → retorna <code>409 Conflict</code> com mensagem de erro.</p></li>
-  </ol>
 </div>
 
 <div class="entrega_atual">
