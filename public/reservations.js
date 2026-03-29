@@ -184,6 +184,11 @@ async function updateAvailableRoomsSelect() {
     return;
   }
 
+  if (endTime <= startTime) {
+    roomSelect.innerHTML = '<option value="">-- Horário inválido: fim deve ser maior que início --</option>';
+    return;
+  }
+
   try {
     const allReservations = await apiRequest('/api/reservations');
     const availableRooms = getAvailableRooms(allReservations, date, startTime, endTime);
@@ -214,7 +219,14 @@ reservationForm.addEventListener('submit', async (event) => {
   event.preventDefault();
 
   const formData = new FormData(reservationForm);
+  const startTime = formData.get('startTime');
+  const endTime = formData.get('endTime');
   const roomId = Number(formData.get('roomId'));
+
+  if (endTime <= startTime) {
+    setStatus(reservationStatus, 'O horário de fim deve ser maior que o horário de início.', 'error');
+    return;
+  }
 
   if (!roomId) {
     setStatus(reservationStatus, 'Selecione uma sala válida.', 'error');
@@ -227,8 +239,8 @@ reservationForm.addEventListener('submit', async (event) => {
       body: JSON.stringify({
         roomId: roomId,
         date: formData.get('date'),
-        startTime: formData.get('startTime'),
-        endTime: formData.get('endTime')
+        startTime,
+        endTime
       })
     });
 

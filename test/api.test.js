@@ -91,3 +91,24 @@ test('conflicting reservation is rejected', async () => {
 
   assert.equal(conflictResponse.statusCode, 409);
 });
+
+test('reservation with end time before or equal start time is rejected', async () => {
+  const loginResponse = await request(app)
+    .post('/api/auth/login')
+    .send({ email: 'professor@unireserva.com', password: 'prof123' });
+
+  const token = loginResponse.body.token;
+
+  const invalidTimeResponse = await request(app)
+    .post('/api/reservations')
+    .set('Authorization', `Bearer ${token}`)
+    .send({
+      roomId: 1,
+      date: '2026-03-22',
+      startTime: '19:00',
+      endTime: '18:00'
+    });
+
+  assert.equal(invalidTimeResponse.statusCode, 400);
+  assert.equal(invalidTimeResponse.body.message, 'O horário de fim deve ser maior que o horário de início.');
+});

@@ -10,6 +10,10 @@ async function createReservation({ date, startTime, endTime, roomId, userId }) {
     throw new Error('Data, horários, sala e usuário são obrigatórios.');
   }
 
+  if (endTime <= startTime) {
+    throw new Error('O horário de fim deve ser maior que o horário de início.');
+  }
+
   const normalizedRoomId = Number(roomId);
   const normalizedUserId = Number(userId);
   const room = await roomRepository.findRoomById(normalizedRoomId);
