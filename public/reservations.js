@@ -150,9 +150,9 @@ function displayRoomsByType(rooms) {
 
   roomTypesSection.innerHTML = Object.entries(roomsByType)
     .map(([type, typeRooms]) => `
-      <div style="background-color: #f5f5f5; padding: 10px; border-radius: 5px;">
-        <h4 style="margin-top: 0;">${type.toUpperCase()}</h4>
-        <ul style="margin: 0; padding-left: 20px;">
+      <div class="room-type-card">
+        <h4>${type.toUpperCase()}</h4>
+        <ul>
           ${typeRooms.map(room => `
             <li>${room.name} (capacidade: ${room.capacity})</li>
           `).join('')}

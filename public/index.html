@@ -8,14 +8,19 @@
 </head>
 <body>
   <header class="hero">
-    <img src="../assets/images/Logo_UniReserva.png" alt="Logo UniReserva" class="logo" />
-    <div>
-      <h1>UniReserva</h1>
-      <p>Sistema de reserva de salas</p>
+    <div class="hero-brand">
+      <img src="/assets/images/Logo_UniReserva.png" alt="Logo UniReserva" class="logo" />
+      <div>
+        <h1>UniReserva</h1>
+        <p>Sistema de reserva de salas</p>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <button id="theme-toggle" type="button" class="theme-toggle">Modo escuro</button>
     </div>
   </header>
 
-  <main class="grid">
+  <main class="grid grid-centered-narrow">
     <section class="card card-wide">
       <h2>Bem-vindo ao UniReserva</h2>
       <p>Sistema moderno e intuitivo para gerenciamento de reservas de salas.</p>
@@ -31,5 +36,6 @@
       </p>
     </section>
   </main>
+  <script src="theme.js"></script>
 </body>
 </html>

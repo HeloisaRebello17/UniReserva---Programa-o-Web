@@ -9,6 +9,27 @@
   --border: #dbe2f0;
   --success: #166534;
   --error: #b91c1c;
+  --hero-grad-start: #dbeafe;
+  --hero-grad-end: #eff6ff;
+  --shadow: rgba(15, 23, 42, 0.08);
+  --surface-soft: #f3f6fc;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b1220;
+  --surface: #111a2b;
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --border: #243247;
+  --success: #22c55e;
+  --error: #f87171;
+  --hero-grad-start: #111827;
+  --hero-grad-end: #1f2937;
+  --shadow: rgba(0, 0, 0, 0.35);
+  --surface-soft: #162238;
 }
 
 * {
@@ -25,10 +46,23 @@ body {
 .hero {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1.5rem;
   padding: 2rem;
-  background: linear-gradient(135deg, #dbeafe, #eff6ff);
+  background: linear-gradient(135deg, var(--hero-grad-start), var(--hero-grad-end));
   border-bottom: 1px solid var(--border);
+}
+
+.hero-brand {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .logo {
@@ -43,12 +77,18 @@ body {
   padding: 2rem;
 }
 
+.grid-centered-narrow {
+  max-width: 760px;
+  margin: 0 auto;
+  grid-template-columns: 1fr;
+}
+
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 30px var(--shadow);
 }
 
 .card-wide {
@@ -77,12 +117,14 @@ label {
   font-weight: 600;
 }
 
-input, button {
+input, select, button {
   width: 100%;
   padding: 0.75rem;
   border-radius: 10px;
   border: 1px solid var(--border);
   font-size: 1rem;
+  background: var(--surface);
+  color: var(--text);
 }
 
 button {
@@ -99,12 +141,27 @@ button:hover {
 
 .secondary-button {
   margin-top: 0.75rem;
-  background: #e5e7eb;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
   color: var(--text);
 }
 
 .secondary-button:hover {
-  background: #d1d5db;
+  background: var(--surface);
+}
+
+.theme-toggle {
+  width: auto;
+  min-width: 120px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 0.55rem 0.8rem;
+  border-radius: 999px;
+}
+
+.theme-toggle:hover {
+  background: rgba(127, 127, 127, 0.12);
 }
 
 button:disabled {
@@ -133,10 +190,39 @@ button:disabled {
   color: var(--error);
 }
 
+.room-type-card {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.room-type-card h4 {
+  margin: 0 0 0.5rem 0;
+}
+
+.room-type-card ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
 @media (max-width: 768px) {
   .hero {
     flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-brand {
+    width: 100%;
+    justify-content: center;
     text-align: center;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .hero-actions {
+    width: 100%;
+    justify-content: center;
   }
 
   .card-wide {
