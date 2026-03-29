@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">Diagrama ER - UniReserva</title>
+  <desc id="desc">Relacionamento entre users, rooms e reservations no banco do UniReserva</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .table { fill: #ffffff; stroke: #1e3a8a; stroke-width: 2; rx: 10; }
+      .head { fill: #dbeafe; stroke: #1e3a8a; stroke-width: 2; rx: 10; }
+      .title { font: 700 20px Arial, Helvetica, sans-serif; fill: #0f172a; }
+      .col { font: 14px Arial, Helvetica, sans-serif; fill: #1f2937; }
+      .pk { font-weight: 700; fill: #1e40af; }
+      .fk { font-weight: 700; fill: #0f766e; }
+      .line { stroke: #334155; stroke-width: 2.5; fill: none; }
+      .card { font: 700 13px Arial, Helvetica, sans-serif; fill: #334155; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="640" />
+
+  <!-- USERS -->
+  <rect class="table" x="60" y="120" width="330" height="310" rx="10" />
+  <rect class="head" x="60" y="120" width="330" height="56" rx="10" />
+  <text class="title" x="225" y="155" text-anchor="middle">users</text>
+
+  <text class="col pk" x="84" y="206">id (PK)</text>
+  <text class="col" x="84" y="236">name</text>
+  <text class="col" x="84" y="266">email (UNIQUE)</text>
+  <text class="col" x="84" y="296">password</text>
+  <text class="col" x="84" y="326">type</text>
+
+  <!-- ROOMS -->
+  <rect class="table" x="810" y="120" width="330" height="290" rx="10" />
+  <rect class="head" x="810" y="120" width="330" height="56" rx="10" />
+  <text class="title" x="975" y="155" text-anchor="middle">rooms</text>
+
+  <text class="col pk" x="834" y="206">id (PK)</text>
+  <text class="col" x="834" y="236">name</text>
+  <text class="col" x="834" y="266">capacity (CHECK &gt; 0)</text>
+  <text class="col" x="834" y="296">type</text>
+
+  <!-- RESERVATIONS -->
+  <rect class="table" x="405" y="270" width="390" height="320" rx="10" />
+  <rect class="head" x="405" y="270" width="390" height="56" rx="10" />
+  <text class="title" x="600" y="305" text-anchor="middle">reservations</text>
+
+  <text class="col pk" x="430" y="356">id (PK)</text>
+  <text class="col" x="430" y="386">date</text>
+  <text class="col" x="430" y="416">start_time</text>
+  <text class="col" x="430" y="446">end_time</text>
+  <text class="col fk" x="430" y="476">user_id (FK -&gt; users.id)</text>
+  <text class="col fk" x="430" y="506">room_id (FK -&gt; rooms.id)</text>
+  <text class="col" x="430" y="536">status</text>
+  <text class="col" x="430" y="566">CHECK: start_time &lt; end_time</text>
+
+  <!-- RELATION LINES -->
+  <path class="line" d="M390 300 L405 300" />
+  <path class="line" d="M795 320 L810 320" />
+
+  <path class="line" d="M390 300 C430 300, 430 476, 405 476" />
+  <path class="line" d="M810 320 C770 320, 770 506, 795 506" />
+
+  <text class="card" x="395" y="292">1</text>
+  <text class="card" x="397" y="472">N</text>
+
+  <text class="card" x="804" y="312">1</text>
+  <text class="card" x="783" y="502">N</text>
+
+  <text class="col" x="420" y="70" style="font-size:18px;font-weight:700;fill:#0f172a;">UniReserva - Modelo Relacional (ER)</text>
+</svg>

@@ -93,6 +93,12 @@
     <li><p>id_sala</p></li>
     <li><p>status</p></li>
   </ul>
+
+  <h3>Diagrama do Banco de Dados</h3>
+  <p>Imagem do modelo relacional baseada em <code>db/schema.sql</code>:</p>
+  <p align="center">
+    <img src="assets/images/database-er.svg" alt="Diagrama ER do banco de dados UniReserva" width="980" />
+  </p>
 </div>
 
 <div class="tecnologias_utilizadas">
@@ -214,7 +220,7 @@
   <ul>
     <li><p><b>Front-end:</b> interface inicial em <code>public/index.html</code>, <code>public/styles.css</code> e <code>public/app.js</code>.</p></li>
     <li><p><b>Back-end:</b> API REST em Node.js + Express, organizada em estrutura inspirada em MVC dentro da pasta <code>src</code>.</p></li>
-    <li><p><b>Banco de dados:</b> schema em <code>db/schema.sql</code>, seed em <code>db/seed.sql</code> e script de inicialização em <code>scripts/initDb.js</code>.</p></li>
+    <li><p><b>Banco de dados:</b> schema em <code>db/schema.sql</code>, seed em <code>db/seed.sql</code>, script de inicialização em <code>scripts/initDb.js</code> e diagrama em <code>assets/images/database-er.svg</code>.</p></li>
     <li><p><b>Demo local:</b> configuração de ambiente em <code>.env.example</code> e serviço PostgreSQL em <code>docker-compose.yml</code>.</p></li>
     <li><p><b>Arquitetura C4:</b> fontes em <code>c4-context.puml</code>, <code>c4-container.puml</code> e <code>c4-components.puml</code>; imagens em <code>assets/images/c4-context.png</code>, <code>assets/images/c4-container.png</code> e <code>assets/images/c4-components.png</code>.</p></li>
     <li><p><b>Teste automatizado:</b> fluxo principal validado em <code>test/api.test.js</code>.</p></li>
