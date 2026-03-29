@@ -155,7 +155,9 @@
 
 <div class="arquitetura_c4">
   <h2>Arquitetura C4</h2>
-  <p><a href="c4-context.puml">Ver arquivo fonte do diagrama C4</a></p>
+  <p><a href="c4-context.puml">Fonte - Nível 1 (Contexto)</a></p>
+  <p><a href="c4-container.puml">Fonte - Nível 2 (Contêiner)</a></p>
+  <p><a href="c4-components.puml">Fonte - Nível 3 (Componentes)</a></p>
 
   <p align="center">
     <img src="assets/images/c4-context.png" alt="Diagrama C4 de contexto do UniReserva" width="900" />
@@ -170,6 +172,9 @@
   </ul>
 
   <h3>Nível 2 – Diagrama de Contêiner</h3>
+  <p align="center">
+    <img src="assets/images/c4-container.png" alt="Diagrama C4 de contêiner do UniReserva" width="900" />
+  </p>
   <p>Componentes principais do sistema:</p>
   <ul>
     <li><p><b>Front-end (HTML + CSS + JavaScript)</b> → interface web executada no navegador do usuário. Consome a API REST.</p></li>
@@ -178,6 +183,9 @@
   </ul>
 
   <h3>Nível 3 – Diagrama de Componentes (Back-end)</h3>
+  <p align="center">
+    <img src="assets/images/c4-components.png" alt="Diagrama C4 de componentes do UniReserva" width="900" />
+  </p>
   <p>Componentes internos da API:</p>
   <ul>
     <li><p><b>Router (Rotas Express)</b> → define os endpoints da API REST e direciona as requisições.</p></li>
@@ -208,7 +216,7 @@
     <li><p><b>Back-end:</b> API REST em Node.js + Express, organizada em estrutura inspirada em MVC dentro da pasta <code>src</code>.</p></li>
     <li><p><b>Banco de dados:</b> schema em <code>db/schema.sql</code>, seed em <code>db/seed.sql</code> e script de inicialização em <code>scripts/initDb.js</code>.</p></li>
     <li><p><b>Demo local:</b> configuração de ambiente em <code>.env.example</code> e serviço PostgreSQL em <code>docker-compose.yml</code>.</p></li>
-    <li><p><b>Arquitetura C4:</b> diagrama fonte em <code>c4-context.puml</code> e imagem em <code>assets/images/c4-context.png</code>.</p></li>
+    <li><p><b>Arquitetura C4:</b> fontes em <code>c4-context.puml</code>, <code>c4-container.puml</code> e <code>c4-components.puml</code>; imagens em <code>assets/images/c4-context.png</code>, <code>assets/images/c4-container.png</code> e <code>assets/images/c4-components.png</code>.</p></li>
     <li><p><b>Teste automatizado:</b> fluxo principal validado em <code>test/api.test.js</code>.</p></li>
   </ul>
 
