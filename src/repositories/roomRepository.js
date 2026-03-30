@@ -22,8 +22,15 @@ async function createRoom({ name, capacity, type }) {
   return result.rows[0];
 }
 
+async function deleteRoomById(id) {
+  const db = getDatabase();
+  const result = await db.query('DELETE FROM rooms WHERE id = $1 RETURNING id, name, capacity, type', [id]);
+  return result.rows[0] || null;
+}
+
 module.exports = {
   listRooms,
   findRoomById,
-  createRoom
+  createRoom,
+  deleteRoomById
 };

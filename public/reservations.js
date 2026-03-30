@@ -9,6 +9,11 @@ const sessionStatus = document.getElementById('session-status');
 const reservationStatus = document.getElementById('reservation-status');
 const reservationList = document.getElementById('reservation-list');
 const logoutButton = document.getElementById('logout-button');
+const reservationSectionTitle = document.getElementById('reservation-section-title');
+const adminRoomPanel = document.getElementById('admin-room-panel');
+const roomForm = document.getElementById('room-form');
+const roomStatus = document.getElementById('room-status');
+const roomAdminList = document.getElementById('room-admin-list');
 
 const SESSION_STORAGE_KEY = 'unireserva-auth';
 
@@ -17,6 +22,10 @@ const state = {
   user: null,
   allRooms: []
 };
+
+function isAdmin() {
+  return state.user && state.user.type === 'admin';
+}
 
 const today = new Date().toISOString().split('T')[0];
 document.getElementById('date').value = today;
@@ -41,8 +50,11 @@ function setAuthenticatedUI(isAuthenticated) {
   loadReservationsButton.disabled = !isAuthenticated;
 
   if (isAuthenticated && state.user) {
-    setStatus(sessionStatus, `Sessão ativa: ${state.user.name}.`, 'success');
+    const profileLabel = isAdmin() ? 'Administrador' : 'Professor';
+    setStatus(sessionStatus, `Sessão ativa: ${state.user.name} (${profileLabel}).`, 'success');
     logoutButton.style.display = 'inline-block';
+    adminRoomPanel.style.display = isAdmin() ? 'block' : 'none';
+    reservationSectionTitle.textContent = isAdmin() ? 'Todas as reservas' : 'Minhas reservas';
     loadRooms();
     loadReservationsButton.click();
   } else {
@@ -81,6 +93,8 @@ function clearSession(message) {
   saveSession();
   roomTypesSection.innerHTML = '';
   reservationList.innerHTML = '';
+  roomAdminList.innerHTML = '';
+  adminRoomPanel.style.display = 'none';
   if (message) {
     setStatus(sessionStatus, message, 'error');
   }
@@ -127,10 +141,29 @@ async function loadRooms() {
     const rooms = await apiRequest('/api/rooms');
     state.allRooms = rooms;
     displayRoomsByType(rooms);
+    renderAdminRoomList(rooms);
     updateAvailableRoomsSelect();
   } catch (error) {
     setStatus(reservationStatus, error.message, 'error');
   }
+}
+
+function renderAdminRoomList(rooms) {
+  if (!isAdmin()) {
+    roomAdminList.innerHTML = '';
+    return;
+  }
+
+  if (!rooms.length) {
+    roomAdminList.innerHTML = '<li>Nenhuma sala cadastrada.</li>';
+    return;
+  }
+
+  roomAdminList.innerHTML = rooms
+    .map(
+      (room) => `<li><strong>${room.name}</strong> - ${room.type} - capacidade ${room.capacity} <button type="button" class="small-button" data-room-delete-id="${room.id}">Excluir</button></li>`
+    )
+    .join('');
 }
 
 function displayRoomsByType(rooms) {
@@ -266,24 +299,105 @@ reservationForm.addEventListener('submit', async (event) => {
 loadReservationsButton.addEventListener('click', async () => {
   try {
     const reservations = await apiRequest('/api/reservations');
-    
-    // Filtrar apenas as reservas do usuário logado
-    const userReservations = reservations.filter((r) => Number(r.userId) === Number(state.user.id));
-    
-    if (userReservations.length === 0) {
+
+    const canViewAll = isAdmin();
+    const visibleReservations = canViewAll
+      ? reservations
+      : reservations.filter((r) => Number(r.userId) === Number(state.user.id));
+
+    if (visibleReservations.length === 0) {
       reservationList.innerHTML = '<li>Nenhuma reserva realizada até o momento.</li>';
       return;
     }
 
-    reservationList.innerHTML = userReservations
+    reservationList.innerHTML = visibleReservations
       .map((reservation) => {
         const room = state.allRooms.find(r => r.id === reservation.roomId);
         const roomName = room ? room.name : `Sala ${reservation.roomId}`;
-        return `<li><strong>Reserva #${reservation.id}</strong> - ${roomName} - ${reservation.date} de ${reservation.startTime} às ${reservation.endTime} - <span style="color: ${reservation.status === 'ativa' ? 'green' : 'red'};">${reservation.status}</span></li>`;
+        const ownerText = canViewAll ? ` - usuário ${reservation.userId}` : '';
+        const canCancel = reservation.status === 'ativa' && (canViewAll || Number(reservation.userId) === Number(state.user.id));
+        const cancelButton = canCancel
+          ? ` <button type="button" class="small-button" data-reservation-cancel-id="${reservation.id}">Cancelar</button>`
+          : '';
+        return `<li><strong>Reserva #${reservation.id}</strong> - ${roomName}${ownerText} - ${reservation.date} de ${reservation.startTime} às ${reservation.endTime} - <span style="color: ${reservation.status === 'ativa' ? 'green' : 'red'};">${reservation.status}</span>${cancelButton}</li>`;
       })
       .join('');
   } catch (error) {
     setStatus(reservationStatus, error.message, 'error');
+  }
+});
+
+reservationList.addEventListener('click', async (event) => {
+  const button = event.target.closest('[data-reservation-cancel-id]');
+  if (!button) {
+    return;
+  }
+
+  const reservationId = Number(button.getAttribute('data-reservation-cancel-id'));
+  if (!reservationId) {
+    return;
+  }
+
+  try {
+    await apiRequest(`/api/reservations/${reservationId}`, {
+      method: 'DELETE'
+    });
+
+    setStatus(reservationStatus, `Reserva #${reservationId} cancelada com sucesso.`, 'success');
+    loadReservationsButton.click();
+    updateAvailableRoomsSelect();
+  } catch (error) {
+    setStatus(reservationStatus, error.message, 'error');
+  }
+});
+
+roomForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  if (!isAdmin()) {
+    return;
+  }
+
+  const formData = new FormData(roomForm);
+  try {
+    await apiRequest('/api/rooms', {
+      method: 'POST',
+      body: JSON.stringify({
+        name: formData.get('name'),
+        capacity: Number(formData.get('capacity')),
+        type: formData.get('type')
+      })
+    });
+
+    roomForm.reset();
+    setStatus(roomStatus, 'Sala adicionada com sucesso.', 'success');
+    loadRooms();
+  } catch (error) {
+    setStatus(roomStatus, error.message, 'error');
+  }
+});
+
+roomAdminList.addEventListener('click', async (event) => {
+  const button = event.target.closest('[data-room-delete-id]');
+  if (!button || !isAdmin()) {
+    return;
+  }
+
+  const roomId = Number(button.getAttribute('data-room-delete-id'));
+  if (!roomId) {
+    return;
+  }
+
+  try {
+    await apiRequest(`/api/rooms/${roomId}`, {
+      method: 'DELETE'
+    });
+
+    setStatus(roomStatus, `Sala #${roomId} excluída com sucesso.`, 'success');
+    loadRooms();
+    loadReservationsButton.click();
+  } catch (error) {
+    setStatus(roomStatus, error.message, 'error');
   }
 });
 

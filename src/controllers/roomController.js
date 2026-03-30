@@ -18,7 +18,17 @@ async function create(req, res) {
   }
 }
 
+async function remove(req, res) {
+  try {
+    const room = await roomService.deleteRoom(req.params.id);
+    res.json(room);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
 module.exports = {
   list,
-  create
+  create,
+  remove
 };

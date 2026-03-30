@@ -65,6 +65,23 @@ async function findConflict({ date, startTime, endTime, roomId }) {
   return result.rows[0] || null;
 }
 
+async function findUserConflict({ date, startTime, endTime, userId }) {
+  const db = getDatabase();
+  const result = await db.query(
+    `SELECT id
+     FROM reservations
+     WHERE user_id = $1
+       AND date = $2
+       AND status <> 'cancelada'
+       AND $3::time < end_time
+       AND $4::time > start_time
+     LIMIT 1`,
+    [userId, date, startTime, endTime]
+  );
+
+  return result.rows[0] || null;
+}
+
 async function createReservation({ date, startTime, endTime, roomId, userId }) {
   const db = getDatabase();
   const result = await db.query(
@@ -94,6 +111,7 @@ module.exports = {
   listReservations,
   findReservationById,
   findConflict,
+  findUserConflict,
   createReservation,
   cancelReservation
 };

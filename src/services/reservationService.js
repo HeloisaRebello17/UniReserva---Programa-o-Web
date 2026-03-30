@@ -34,6 +34,19 @@ async function createReservation({ date, startTime, endTime, roomId, userId }) {
     throw error;
   }
 
+  const userConflict = await reservationRepository.findUserConflict({
+    date,
+    startTime,
+    endTime,
+    userId: normalizedUserId
+  });
+
+  if (userConflict) {
+    const error = new Error('Usuário já possui uma reserva neste horário.');
+    error.code = 'CONFLICT';
+    throw error;
+  }
+
   return reservationRepository.createReservation({
     date,
     startTime,

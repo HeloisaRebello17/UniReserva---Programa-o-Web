@@ -58,8 +58,31 @@
       <p id="reservation-status" class="status"></p>
     </section>
 
+    <section id="admin-room-panel" class="card card-wide" style="display: none;">
+      <h2>Gerenciar salas (Administrador)</h2>
+      <form id="room-form">
+        <div class="row">
+          <div>
+            <label for="roomName">Nome da sala</label>
+            <input id="roomName" name="name" type="text" required />
+          </div>
+          <div>
+            <label for="roomCapacity">Capacidade</label>
+            <input id="roomCapacity" name="capacity" type="number" min="1" required />
+          </div>
+          <div>
+            <label for="roomType">Tipo</label>
+            <input id="roomType" name="type" type="text" placeholder="laboratório, sala comum..." required />
+          </div>
+        </div>
+        <button type="submit">Adicionar sala</button>
+      </form>
+      <p id="room-status" class="status"></p>
+      <ul id="room-admin-list" class="list"></ul>
+    </section>
+
     <section class="card card-wide">
-      <h2>Minhas reservas</h2>
+      <h2 id="reservation-section-title">Minhas reservas</h2>
       <button id="load-reservations" type="button">Atualizar reservas</button>
       <ul id="reservation-list" class="list"></ul>
     </section>

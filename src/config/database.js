@@ -58,6 +58,20 @@ class MockDatabase {
       return { rows: [newRoom] };
     }
 
+    // DELETE FROM rooms WHERE id
+    if (sqlLower.includes('delete from rooms') && sqlLower.includes('where id')) {
+      const id = Number(params[0]);
+      const roomIndex = store.rooms.findIndex(r => Number(r.id) === id);
+      if (roomIndex === -1) {
+        return { rows: [] };
+      }
+
+      const [deletedRoom] = store.rooms.splice(roomIndex, 1);
+      // Simula ON DELETE CASCADE do PostgreSQL para reservas vinculadas.
+      store.reservations = store.reservations.filter(r => Number(r.room_id) !== id);
+      return { rows: [deletedRoom] };
+    }
+
     // SELECT FROM reservations - encontrar conflitos
     if (
       sqlLower.includes('from reservations') &&
@@ -78,6 +92,29 @@ class MockDatabase {
         r.end_time > startTime
       );
       
+      return { rows: conflict ? [{ id: conflict.id }] : [] };
+    }
+
+    // SELECT FROM reservations - conflito por usuário
+    if (
+      sqlLower.includes('from reservations') &&
+      sqlLower.includes('where user_id') &&
+      sqlLower.includes('status <>') &&
+      sqlLower.includes('limit 1')
+    ) {
+      const userId = Number(params[0]);
+      const date = params[1];
+      const startTime = params[2];
+      const endTime = params[3];
+
+      const conflict = store.reservations.find(r =>
+        Number(r.user_id) === userId &&
+        r.date === date &&
+        r.status !== 'cancelada' &&
+        r.start_time < endTime &&
+        r.end_time > startTime
+      );
+
       return { rows: conflict ? [{ id: conflict.id }] : [] };
     }
 
