@@ -224,17 +224,17 @@
   <h3>Como Executar</h3>
   <ol>
     <li><p>Copiar <code>.env.example</code> para um arquivo <code>.env</code> e ajustar as variáveis se necessário.</p></li>
-    <li><p>Instalar dependências com <code>npm.cmd install</code>.</p></li>
-    <li><p>Subir o PostgreSQL com <code>npm.cmd run db:up</code> (requer Docker instalado).</p></li>
-    <li><p>Inicializar schema e seed com <code>npm.cmd run db:init</code>.</p></li>
-    <li><p>Iniciar a aplicação com <code>npm.cmd start</code>.</p></li>
-    <li><p>Acessar <code>http://localhost:3000</code> no navegador.</p></li>
+    <li><p>Instalar dependências com <code>npm install</code>.</p></li>
+    <li><p>Subir o PostgreSQL com <code>npm run db:up</code> (requer Docker instalado).</p></li>
+    <li><p>Inicializar schema e seed com <code>npm run db:init</code>.</p></li>
+    <li><p>Iniciar a aplicação com <code>npm start</code>.</p></li>
+    <li><p>Acessar <code>http://localhost:3001</code> no navegador.</p></li>
   </ol>
 
   <h3>Validação da Entrega</h3>
   <ul>
-    <li><p>Os testes automatizados passam com <code>npm.cmd test</code>.</p></li>
-    <li><p>O comando <code>npm.cmd start</code> sobe a aplicação localmente.</p></li>
+    <li><p>Os testes automatizados passam com <code>npm test</code>.</p></li>
+    <li><p>O comando <code>npm start</code> sobe a aplicação localmente.</p></li>
     <li><p>Neste ambiente de edição, o Docker não está instalado; por isso, a subida real do container PostgreSQL deve ser executada localmente na máquina com Docker disponível.</p></li>
   </ul>
 
