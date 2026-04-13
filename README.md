@@ -234,6 +234,7 @@
   <h3>Validação da Entrega</h3>
   <ul>
     <li><p>Os testes automatizados passam com <code>npm test</code>.</p></li>
+    <li><p>A verificação também é executada por pipeline no GitHub Actions (workflow <code>.github/workflows/npm-publish-github-packages.yml</code>), que roda <code>npm ci</code> e <code>npm test</code> antes das etapas de publicação.</p></li>
     <li><p>O comando <code>npm start</code> sobe a aplicação localmente.</p></li>
     <li><p>Neste ambiente de edição, o Docker não está instalado; por isso, a subida real do container PostgreSQL deve ser executada localmente na máquina com Docker disponível.</p></li>
   </ul>
