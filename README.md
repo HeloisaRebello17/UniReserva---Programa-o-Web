@@ -318,7 +318,7 @@
     <li><p><b>Professor:</b> <code>professor@unireserva.com</code> / <code>prof123</code></p></li>
   </ul>
 </div>
-<div><br>
+<div style="display: flex"><br>
   <img align="center" alt="FIGMA" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" />
   <img align="center" alt="GITHUB" height="40" width="40"src="https://cdn.iconscout.com/icon/free/png-256/github-2690381-2232884.png" />
   <img  align="center" alt="VSCODE" height="35" width="30" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" />
