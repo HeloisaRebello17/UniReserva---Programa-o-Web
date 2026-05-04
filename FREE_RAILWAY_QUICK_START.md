@@ -42,16 +42,22 @@ Railroad começará a detectar Dockerfile e criar container!
 
 ### Step 3: Adicionar Banco de Dados (2 minutos)
 
+**Confuso de onde clicar?** 👉 Veja [RAILWAY_ADD_DATABASE_VISUAL_GUIDE.md](RAILWAY_ADD_DATABASE_VISUAL_GUIDE.md)
+
 ```
 1. Seu projeto está sendo criado...
 2. Quando terminar, clique em "+ New"
 3. Selecione "Database"
 4. Selecione "PostgreSQL"
-5. Nomeie: "postgres"
-6. Clique "Create"
+5. Railway cria automaticamente (sem precisar nomear)
 ```
 
 Railway irá provisionar PostgreSQL automaticamente ✨
+
+**O que você verá após:**
+- Container "postgres" adicionado ao dashboard
+- Status: ✅ Running
+- Variáveis de banco preenchidas automaticamente
 
 ### Step 4: Configurar Variáveis (3 minutos)
 
