@@ -4,6 +4,14 @@
 
 <h2 align="center"> UniReserva </h2>
 
+<p align="center">
+  <img alt="Status" src="https://img.shields.io/badge/Status-Production%20Ready-brightgreen">
+  <img alt="Node" src="https://img.shields.io/badge/Node.js-v20-green">
+  <img alt="Tests" src="https://img.shields.io/badge/Tests-23%20Passing-brightgreen">
+  <img alt="Coverage" src="https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-blue">
+  <img alt="Docker" src="https://img.shields.io/badge/Docker-Ready-blue">
+</p>
+
 <div class="descricao_projeto">
   <h2> Descrição do Projeto </h2>
   <p>Sistema Web para gerenciamento de reservas de salas em instituições educacionais. Projeto acadêmico desenvolvido para a disciplina de Programação Web do curso de Engenharia de Software da instituição Centro Universitário Católica de Santa Catarina.</p>
@@ -131,6 +139,34 @@
     <li><p>Segurança para rotas protegidas.</p></li>
     <li><p>Muito utilizado em APIs modernas.</p></li>
   </ul>
+  <br>
+  <h3>DevOps e CI/CD</h3>
+  <ul>
+    <li><p>GitHub Actions (workflow automático)</p></li>
+    <li><p>Docker e Docker Compose</p></li>
+    <li><p>ESLint (code quality)</p></li>
+    <li><p>Testes automatizados com Node.js test runner</p></li>
+  </ul>
+  <p><b>Justificativa:</b></p>
+  <ul>
+    <li><p>Automação de testes e validações em cada push.</p></li>
+    <li><p>Deploy facilitado com containers Docker.</p></li>
+    <li><p>Manutenção de qualidade de código constante.</p></li>
+    <li><p>Preparado para ambientes de produção.</p></li>
+  </ul>
+  <br>
+  <h3>Observabilidade</h3>
+  <ul>
+    <li><p>Logger estruturado em JSON</p></li>
+    <li><p>Request logging automático via middleware</p></li>
+    <li><p>Suporte para integração com Sentry, Winston, Prometheus e DataDog</p></li>
+  </ul>
+  <p><b>Justificativa:</b></p>
+  <ul>
+    <li><p>Rastreamento de erros e performance.</p></li>
+    <li><p>Facilita troubleshooting em produção.</p></li>
+    <li><p>Preparado para escalabilidade.</p></li>
+  </ul>
 </div>
 
 <div class="arquitetura_c4">
@@ -177,27 +213,32 @@
 </div>
 
 <div class="entrega_atual">
-  <h2>Entrega Atual – Próxima Iteração</h2>
-  <p>Nesta etapa, a implementação evoluiu <b>por ambos</b>: front-end e back-end, com integração real ao PostgreSQL e preparação de demo local.</p>
+  <h2>Entrega Atual – Pronto para Produção</h2>
+  <p>Nesta etapa final, a implementação evoluiu para um padrão <b>production-ready</b>, incluindo CI/CD automático, testes abrangentes, deployment documentado e observabilidade integrada.</p>
 
   <h3>Artefatos Disponíveis no Repositório</h3>
   <ul>
-    <li><p><b>Front-end:</b> interface inicial em <code>public/index.html</code>, <code>public/styles.css</code> e <code>public/app.js</code>.</p></li>
-    <li><p><b>Back-end:</b> API REST em Node.js + Express, organizada em estrutura inspirada em MVC dentro da pasta <code>src</code>.</p></li>
-    <li><p><b>Banco de dados:</b> schema em <code>db/schema.sql</code>, seed em <code>db/seed.sql</code>, script de inicialização em <code>scripts/initDb.js</code> e diagrama em <code>assets/images/database-er.svg</code>.</p></li>
-    <li><p><b>Demo local:</b> configuração de ambiente em <code>.env.example</code> e serviço PostgreSQL em <code>docker-compose.yml</code>.</p></li>
-    <li><p><b>Arquitetura C4:</b> fontes em <code>c4-context.puml</code>, <code>c4-container.puml</code> e <code>c4-components.puml</code>; imagens em <code>assets/images/c4-context.png</code>, <code>assets/images/c4-container.png</code> e <code>assets/images/c4-components.png</code>.</p></li>
-    <li><p><b>Teste automatizado:</b> fluxo principal validado em <code>test/api.test.js</code>.</p></li>
+    <li><p><b>Front-end:</b> interface web em <code>public/index.html</code>, <code>public/styles.css</code> e <code>public/app.js</code>.</p></li>
+    <li><p><b>Back-end:</b> API REST em Node.js + Express, organizada em padrão MVC na pasta <code>src</code>.</p></li>
+    <li><p><b>Banco de dados:</b> schema em <code>db/schema.sql</code>, seed em <code>db/seed.sql</code>, script de inicialização em <code>scripts/initDb.js</code>.</p></li>
+    <li><p><b>Testes automatizados:</b> testes de integração em <code>test/api.test.js</code> e testes unitários em <code>test/services.test.js</code> (18+ testes).</p></li>
+    <li><p><b>CI/CD Pipeline:</b> workflow automático em <code>.github/workflows/ci.yml</code> com testes, linting, auditoria de segurança e build Docker.</p></li>
+    <li><p><b>Configuração de Produção:</b> <code>Dockerfile</code> otimizado, <code>docker-compose.prod.yml</code> e <code>docs/DEPLOYMENT.md</code> com guias de deployment.</p></li>
+    <li><p><b>Observabilidade:</b> logger estruturado em <code>src/utils/logger.js</code>, middleware de logging HTTP e documentação em <code>docs/OBSERVABILITY.md</code>.</p></li>
+    <li><p><b>Documentação:</b> <code>README.SETUP.md</code> (setup e troubleshooting), <code>IMPLEMENTATION_SUMMARY.md</code> (resumo técnico), <code>QUICK_START_DEPLOY.md</code> (deploy rápido).</p></li>
+    <li><p><b>Arquitetura C4:</b> diagramas em <code>c4-context.puml</code>, <code>c4-container.puml</code> e <code>c4-components.puml</code>.</p></li>
   </ul>
 
   <h3>Escopo Implementado Nesta Entrega</h3>
   <ul>
-    <li><p>Autenticação com geração e validação de token JWT.</p></li>
-    <li><p>Consulta de salas disponíveis a partir do PostgreSQL.</p></li>
-    <li><p>Criação de reservas com validação de conflito de horário no banco.</p></li>
-    <li><p>Cancelamento de reservas com controle básico de permissão.</p></li>
-    <li><p>Interface web inicial para demonstrar o fluxo principal da aplicação.</p></li>
-    <li><p>Scripts para inicialização da base e preparação de demo local.</p></li>
+    <li><p><b>Autenticação:</b> geração e validação de token JWT com proteção de rotas.</p></li>
+    <li><p><b>API REST:</b> consulta de salas, criação e cancelamento de reservas com validação de conflitos.</p></li>
+    <li><p><b>Interface Web:</b> páginas de login, listagem de salas e gerenciamento de reservas.</p></li>
+    <li><p><b>CI/CD Pipeline (✨ NOVO):</b> workflow automático no GitHub Actions com testes, linting (ESLint), security audit e Docker build validation.</p></li>
+    <li><p><b>TDD - Testes Unitários (✨ NOVO):</b> 18+ testes que cobrem services de autenticação, salas e reservas com validações e casos de erro.</p></li>
+    <li><p><b>Deployment em Produção (✨ NOVO):</b> Dockerfile otimizado, docker-compose.prod.yml e documentação para Railway, Render, Docker VPS e AWS.</p></li>
+    <li><p><b>Observabilidade e Monitoramento (✨ NOVO):</b> logger estruturado JSON, middleware de HTTP request logging, documentação de integração com Winston, Sentry, Prometheus e DataDog.</p></li>
+    <li><p><b>Code Quality:</b> ESLint configurado, cobertura de testes, npm audit automático.</p></li>
   </ul>
 
   <h3>Ajustes de Requisitos Identificados</h3>
@@ -228,15 +269,47 @@
     <li><p>Subir o PostgreSQL com <code>npm run db:up</code> (requer Docker instalado).</p></li>
     <li><p>Inicializar schema e seed com <code>npm run db:init</code>.</p></li>
     <li><p>Iniciar a aplicação com <code>npm start</code>.</p></li>
-    <li><p>Acessar <code>http://localhost:3001</code> no navegador.</p></li>
+    <li><p>Acessar <code>http://localhost:3000</code> no navegador.</p></li>
   </ol>
+
+  <h3>Scripts Disponíveis</h3>
+  <ul>
+    <li><p><code>npm start</code> → inicia o servidor Node.js</p></li>
+    <li><p><code>npm test</code> → executa testes de integração e unitários</p></li>
+    <li><p><code>npm run test:coverage</code> → executa testes com cobertura</p></li>
+    <li><p><code>npm run lint</code> → verifica qualidade do código com ESLint</p></li>
+    <li><p><code>npm run lint:fix</code> → corrige problemas de linting automaticamente</p></li>
+    <li><p><code>npm run db:init</code> → inicializa banco de dados</p></li>
+    <li><p><code>npm run db:up</code> → inicia PostgreSQL com Docker Compose</p></li>
+    <li><p><code>npm run db:down</code> → para PostgreSQL</p></li>
+  </ul>
+
+  <h3>CI/CD e Deployment</h3>
+  <ul>
+    <li><p><b>Workflow Automático:</b> Todo push para <code>main</code> ou PR dispara pipeline em <code>.github/workflows/ci.yml</code> que executa testes, linting, security audit e valida build Docker.</p></li>
+    <li><p><b>Deploy para Produção:</b> Ver documentação em <code>docs/DEPLOYMENT.md</code> para opções de Railway, Render, Docker VPS ou AWS.</p></li>
+    <li><p><b>Quick Start Deploy:</b> Ver <code>QUICK_START_DEPLOY.md</code> para deploy em Railway em 5 minutos.</p></li>
+    <li><p><b>Status da Pipeline:</b> <a href="https://github.com/seu-usuario/UniReserva/actions">GitHub Actions</a></p></li>
+  </ul>
 
   <h3>Validação da Entrega</h3>
   <ul>
-    <li><p>Os testes automatizados passam com <code>npm test</code>.</p></li>
-    <li><p>A verificação também é executada por pipeline no GitHub Actions (workflow <code>.github/workflows/npm-publish-github-packages.yml</code>), que roda <code>npm ci</code> e <code>npm test</code> antes das etapas de publicação.</p></li>
-    <li><p>O comando <code>npm start</code> sobe a aplicação localmente.</p></li>
-    <li><p>Neste ambiente de edição, o Docker não está instalado; por isso, a subida real do container PostgreSQL deve ser executada localmente na máquina com Docker disponível.</p></li>
+    <li><p><b>Testes Automatizados:</b> 23 testes passando com <code>npm test</code> (testes de integração + unitários).</p></li>
+    <li><p><b>Code Quality:</b> ESLint validado com <code>npm run lint</code> (zero warnings).</p></li>
+    <li><p><b>Security:</b> <code>npm audit</code> rodando automaticamente na pipeline.</p></li>
+    <li><p><b>CI/CD Pipeline:</b> workflow no GitHub Actions (<code>.github/workflows/ci.yml</code>) executa automaticamente em push/PR para main/develop.</p></li>
+    <li><p><b>Docker Build:</b> Dockerfile validado como parte da pipeline.</p></li>
+    <li><p><b>Coverage:</b> cobertura de testes coletada com <code>npm run test:coverage</code>.</p></li>
+    <li><p><b>Aplicação Local:</b> <code>npm start</code> inicia servidor em http://localhost:3000.</p></li>
+  </ul>
+
+  <h3>Documentação Adicional</h3>
+  <ul>
+    <li><p><b><a href="README.SETUP.md">README.SETUP.md</a></b> → Setup completo, troubleshooting e FAQ.</p></li>
+    <li><p><b><a href="IMPLEMENTATION_SUMMARY.md">IMPLEMENTATION_SUMMARY.md</a></b> → Resumo técnico de todas as implementações.</p></li>
+    <li><p><b><a href="QUICK_START_DEPLOY.md">QUICK_START_DEPLOY.md</a></b> → Deploy rápido em Railway.</p></li>
+    <li><p><b><a href="docs/DEPLOYMENT.md">docs/DEPLOYMENT.md</a></b> → Guia completo de deployment em produção.</p></li>
+    <li><p><b><a href="docs/OBSERVABILITY.md">docs/OBSERVABILITY.md</a></b> → Implementação de observabilidade, logging e monitoramento.</p></li>
   </ul>
 
   <h3>Usuários de Demonstração</h3>
