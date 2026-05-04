@@ -5,11 +5,13 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const roomRoutes = require('./routes/roomRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
+const { requestLogger, errorLogger } = require('./middleware/logging');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(requestLogger); // Add request logging middleware
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/assets', express.static(path.join(__dirname, '..', 'assets')));
 
@@ -24,5 +26,7 @@ app.use('/api/reservations', reservationRoutes);
 app.use((req, res) => {
   res.status(404).json({ message: 'Rota não encontrada.' });
 });
+
+app.use(errorLogger);
 
 module.exports = app;

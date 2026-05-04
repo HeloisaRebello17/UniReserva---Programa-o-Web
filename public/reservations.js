@@ -17,6 +17,20 @@ const roomAdminList = document.getElementById('room-admin-list');
 
 const SESSION_STORAGE_KEY = 'unireserva-auth';
 
+const API_BASE_CANDIDATES = (() => {
+  if (['3000', '3001'].includes(window.location.port)) {
+    return [''];
+  }
+
+  const host = window.location.hostname || 'localhost';
+  return [
+    `http://${host}:3001`,
+    `http://${host}:3000`,
+    'http://localhost:3001',
+    'http://localhost:3000'
+  ];
+})();
+
 const state = {
   token: null,
   user: null,
@@ -118,22 +132,45 @@ async function apiRequest(path, options = {}) {
     headers.Authorization = `Bearer ${state.token}`;
   }
 
-  const response = await fetch(path, {
-    ...options,
-    headers
-  });
+  let networkError = null;
 
-  const data = await response.json();
+  for (const baseUrl of API_BASE_CANDIDATES) {
+    try {
+      const response = await fetch(`${baseUrl}${path}`, {
+        ...options,
+        headers
+      });
 
-  if (!response.ok) {
-    if (response.status === 401) {
-      clearSession('Sua sessão expirou ou o token é inválido. Faça login novamente.');
-      throw new Error('Sessão expirada');
+      const rawBody = await response.text();
+      let data = {};
+
+      if (rawBody) {
+        try {
+          data = JSON.parse(rawBody);
+        } catch (error) {
+          data = { message: rawBody };
+        }
+      }
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          clearSession('Sua sessão expirou ou o token é inválido. Faça login novamente.');
+          throw new Error('Sessão expirada');
+        }
+        throw new Error(data.message || `Falha na requisição (${response.status}).`);
+      }
+
+      return data;
+    } catch (error) {
+      const isNetworkFailure = error instanceof TypeError;
+      if (!isNetworkFailure) {
+        throw error;
+      }
+      networkError = error;
     }
-    throw new Error(data.message || 'Falha na requisição.');
   }
 
-  return data;
+  throw new Error(networkError ? `Falha de conexão com a API: ${networkError.message}` : 'Falha de conexão com a API.');
 }
 
 async function loadRooms() {
